@@ -1,10 +1,10 @@
 {
   "name": "stream-combiner2",
   "version": "1.0.0",
-  "homepage": "https://github.com/dominictarr/stream-combiner",
+  "homepage": "https://github.com/substack/stream-combiner2",
   "repository": {
     "type": "git",
-    "url": "git://github.com/dominictarr/stream-combiner.git"
+    "url": "git://github.com/substack/stream-combiner2.git"
   },
   "dependencies": {
     "duplexer": "~0.1.1",
