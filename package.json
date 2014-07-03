@@ -1,14 +1,14 @@
 {
   "name": "stream-combiner2",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "homepage": "https://github.com/substack/stream-combiner2",
   "repository": {
     "type": "git",
     "url": "git://github.com/substack/stream-combiner2.git"
   },
   "dependencies": {
-    "duplexer": "~0.1.1",
-    "through": "~2.3.4"
+    "duplexer2": "~0.0.2",
+    "through2": "~0.5.1"
   },
   "devDependencies": {
     "tape": "~2.3.0",
