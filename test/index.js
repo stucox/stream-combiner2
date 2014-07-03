@@ -1,4 +1,5 @@
 var es = require('event-stream')
+var through = require('through2')
 var combine = require('..')
 var test = require('tape')
 
@@ -61,5 +62,19 @@ test('0 argument through stream', function (test) {
   pipe.write('beep')
   pipe.write('boop')
   pipe.end('robots')
+})
+
+test('object mode', function (test) {
+  test.plan(2)
+  var pipe = combine.obj()
+   , expected = [ [4,5,6], {x:5} ]
+
+  pipe.pipe(through.obj(function(data, enc, next) {
+    test.deepEqual(data, expected.shift())
+    next()
+  }))
+  pipe.write([4,5,6])
+  pipe.write({x:5})
+  pipe.end()
 })
 

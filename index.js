@@ -3,18 +3,32 @@ var through = require('through2')
 
 module.exports = function () {
   var streams
-
   if(arguments.length == 1 && Array.isArray(arguments[0])) {
     streams = arguments[0]
   } else {
     streams = [].slice.call(arguments)
   }
+  return combine(streams)
+}
+
+module.exports.obj = function () {
+  var streams
+  if(arguments.length == 1 && Array.isArray(arguments[0])) {
+    streams = arguments[0]
+  } else {
+    streams = [].slice.call(arguments)
+  }
+  return combine(streams, { objectMode: true })
+}
+
+  
+function combine (streams, opts) {
 
   for (var i = 0; i < streams.length; i++)
-    streams[i] = wrap(streams[i])
+    streams[i] = wrap(streams[i], opts)
 
   if(streams.length == 0)
-    return through()
+    return through(opts)
   else if(streams.length == 1)
     return streams[0]
 
@@ -47,9 +61,9 @@ module.exports = function () {
   return thepipe
 }
 
-function wrap (tr) {
+function wrap (tr, opts) {
   if (typeof tr.read === 'function') return tr
-  var opts = tr._options || {}
+  if (!opts) opts = tr._options || {}
   var input = through(opts), output = through(opts)
   input.pipe(tr).pipe(output)
   var dup = duplexer(input, output)
