@@ -1,11 +1,19 @@
-# stream-combiner
+# stream-combiner2
 
-<img src=https://secure.travis-ci.org/dominictarr/stream-combiner.png?branch=master>
+This is a sequel to
+[stream-combiner](https://npmjs.org/package/stream-combiner)
+for streams2.
+
+``` js
+var combine = require('stream-combiner2')
+```
 
 ## Combine (stream1,...,streamN)
 
 Turn a pipeline into a single stream. `Combine` returns a stream that writes to the first stream
 and reads from the last stream. 
+
+Streams1 streams are automatically upgraded to be streams2 streams.
 
 Listening for 'error' will recieve errors from all streams inside the pipe.
 

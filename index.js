@@ -1,5 +1,5 @@
-var duplexer = require('duplexer')
-var through = require('through')
+var duplexer = require('duplexer2')
+var through = require('through2')
 
 module.exports = function () {
   var streams
@@ -9,6 +9,9 @@ module.exports = function () {
   } else {
     streams = [].slice.call(arguments)
   }
+
+  for (var i = 0; i < streams.length; i++)
+    streams[i] = wrap(streams[i])
 
   if(streams.length == 0)
     return through()
@@ -42,4 +45,14 @@ module.exports = function () {
     streams[i].on('error', onerror)
 
   return thepipe
+}
+
+function wrap (tr) {
+  if (typeof tr.read === 'function') return tr
+  var opts = tr._options || {}
+  var input = through(opts), output = through(opts)
+  input.pipe(tr).pipe(output)
+  var dup = duplexer(input, output)
+  tr.on('error', function (err) { dup.emit('error') });
+  return dup;
 }

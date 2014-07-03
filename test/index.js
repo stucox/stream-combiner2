@@ -56,7 +56,7 @@ test('0 argument through stream', function (test) {
    , expected = [ 'beep', 'boop', 'robots' ]
 
   pipe.pipe(es.through(function(data) {
-    test.equal(data, expected.shift())
+    test.equal(data.toString('utf8'), expected.shift())
   }))
   pipe.write('beep')
   pipe.write('boop')
