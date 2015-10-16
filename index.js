@@ -35,7 +35,7 @@ function combine (streams, opts) {
 
   var first = streams[0]
     , last = streams[streams.length - 1]
-    , thepipe = duplexer(first, last)
+    , thepipe = duplexer(opts, first, last)
 
   //pipe all the streams together
 
